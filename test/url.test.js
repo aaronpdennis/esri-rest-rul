@@ -2,7 +2,7 @@ var test = require('tape'),
     esriUrl = require('..');
 
 test('constructs url', function(t) {
-  t.plan(8);
+  t.plan(9);
 
   var url1 = esriUrl({
     base: 'https://services1.arcgis.com/test/arcgis/',
@@ -62,5 +62,14 @@ test('constructs url', function(t) {
     folderLocation: 'utilities/'
   });
   t.equals(url8, 'https://services1.arcgis.com/gis/test/ArcGIS/rest/services/utilities/?f=json', 'folder location, forward slash at end');
+
+  var url9 = esriUrl({
+    base: 'https://services1.arcgis.com/test/arcgis/',
+    service: 'ServiceName',
+    type: 'MapServer',
+    layerIndex: 'layers',
+    format: 'pjson'
+  });
+  t.equals(url9, 'https://services1.arcgis.com/test/arcgis/rest/services/ServiceName/MapServer/layers?f=pjson', '"layers" accepted as layerIndex');
 
 })

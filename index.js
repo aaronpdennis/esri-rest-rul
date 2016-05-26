@@ -14,7 +14,7 @@ module.exports = function(options) {
   if (!options.service && options.type) throw new Error('must specify service name');
   if (options.service && options.type) url += options.service + '/' + options.type;
 
-  if (isInt(options.layerIndex)) url += '/' + options.layerIndex;
+  if (isInt(options.layerIndex) || options.layerIndex === 'layers') url += '/' + options.layerIndex;
 
   if (!options.format) options.format = 'json';
   url += '?f=' + options.format;
