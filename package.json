@@ -1,0 +1,20 @@
+{
+  "name": "esri-rest-url",
+  "version": "1.0.0",
+  "description": "construct ESRI REST API metadata urls",
+  "main": "index.js",
+  "scripts": {
+    "test": "tape test/*.test.js"
+  },
+  "keywords": [
+    "esri",
+    "metadata",
+    "REST",
+    "url"
+  ],
+  "author": "Aaron Dennis",
+  "license": "MIT",
+  "devDependencies": {
+    "tape": "^4.5.1"
+  }
+}
