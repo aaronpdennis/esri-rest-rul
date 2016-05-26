@@ -2,7 +2,7 @@ var test = require('tape'),
     esriUrl = require('..');
 
 test('constructs url', function(t) {
-  t.plan(6);
+  t.plan(8);
 
   var url1 = esriUrl({
     base: 'https://services1.arcgis.com/test/arcgis/',
@@ -15,12 +15,13 @@ test('constructs url', function(t) {
 
   var url2 = esriUrl({
     base: 'https://services1.arcgis.com/test/arcgis/',
-    service: 'Folder/AnotherFolder/ServiceName',
+    folderLocation: 'FolderName/AnotherFolder',
+    service: 'ServiceName',
     type: 'FeatureServer',
     layerIndex: 4,
     format: 'json'
   });
-  t.equals(url2, 'https://services1.arcgis.com/test/arcgis/rest/services/Folder/AnotherFolder/ServiceName/FeatureServer/4?f=json', 'returned expected url for within folders service');
+  t.equals(url2, 'https://services1.arcgis.com/test/arcgis/rest/services/FolderName/AnotherFolder/ServiceName/FeatureServer/4?f=json', 'returned expected url for within folders service');
 
   var url3 = esriUrl({
     base: 'https://services1.arcgis.com/gis/test/ArcGIS/',
@@ -46,8 +47,20 @@ test('constructs url', function(t) {
   t.equals(url5, 'https://services1.arcgis.com/gis/test/ArcGIS/rest/services/ServiceName/MapServer?f=json', 'layerIndex optional');
 
   var url6 = esriUrl({
-    base: 'https://services1.arcgis.com/gis/test/ArcGIS/',
+    base: 'https://services1.arcgis.com/gis/test/ArcGIS/'
   });
   t.equals(url6, 'https://services1.arcgis.com/gis/test/ArcGIS/rest/services/?f=json', 'service and type optional');
+
+  var url7 = esriUrl({
+    base: 'https://services1.arcgis.com/gis/test/ArcGIS/',
+    folderLocation: '/utilities'
+  });
+  t.equals(url7, 'https://services1.arcgis.com/gis/test/ArcGIS/rest/services/utilities/?f=json', 'folder location, forward slash at beginning');
+
+  var url8 = esriUrl({
+    base: 'https://services1.arcgis.com/gis/test/ArcGIS/',
+    folderLocation: 'utilities/'
+  });
+  t.equals(url8, 'https://services1.arcgis.com/gis/test/ArcGIS/rest/services/utilities/?f=json', 'folder location, forward slash at end');
 
 })
